@@ -2,9 +2,19 @@ var express = require('express');
 var app = express();
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
+var cons = require('consolidate');
+
+// Assign nunjucks engine to html files
+app.engine('html', cons.nunjucks);
+
+// set .html as the default extension
+app.set('view engine', 'html');
+app.set('views', __dirname + '/views');
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.render('index', {
+    title: 'App.js'
+  });
 });
 
 
